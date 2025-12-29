@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Phishing Detector",
+  "version": "1.0",
+  "description": "Scans selected email text for phishing attempts",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["http://127.0.0.1:5000/*"],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

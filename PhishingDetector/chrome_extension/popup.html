@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { width: 300px; font-family: sans-serif; padding: 10px; }
+    h2 { text-align: center; color: #333; }
+    .result { margin-top: 15px; padding: 10px; border-radius: 5px; display: none; }
+    .safe { background: #d4edda; color: #155724; }
+    .suspicious { background: #fff3cd; color: #856404; }
+    .phishing { background: #f8d7da; color: #721c24; }
+    button { width: 100%; padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; border-radius: 4px; }
+    button:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+  <h2>Email Scanner</h2>
+  <p style="font-size: 14px; color: #666;">Open an email and click Scan.</p>
+<button id="scanBtn" class="btn">SCAN EMAIL CONTENT</button>
+
+  <div id="resultArea" class="result">
+    <h3 id="verdict"></h3>
+    <p>Score: <span id="score"></span></p>
+    <ul id="reasons" style="padding-left: 20px; font-size: 12px;"></ul>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
