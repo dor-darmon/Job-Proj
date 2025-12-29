@@ -1,4 +1,4 @@
-The main README file acts as "master menu" for all assigment . And lanch page web    
+The main README file acts as "master menu" for all assigment and lanch page web app .
 
 ## Assignment 1. Phishing Detector
 Gmail analysis system designed to identify phishing emails . The system combines heuristic text analysis and link inspection to determine the risk level of a message.
