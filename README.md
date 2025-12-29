@@ -30,7 +30,7 @@ Overview An educational application that demonstrates one of the most common web
 
 Key Features The application features a login interface with two modes. The Vulnerable Mode uses string concatenation to build queries, allowing users to bypass authentication using input manipulation. The Secure Mode demonstrates how parameterized queries treat input as data rather than executable code, effectively neutralizing the attack. The interface displays the backend SQL query in real-time, providing immediate visual feedback on the success or failure of the attack.
 
-* Installation and Usage
+# Installation and Usage
 Launcher The project includes a central management script named launcher.py that allows you to run all assignments from a single dashboard.
 
 Setup Instructions First, ensure you have Python 3.x installed on your machine. Next, install the required dependencies by running the command pip install flask flask-cors watchdog psutil in your terminal. Finally, start the system by running python launcher.py. A dashboard will automatically open in your web browser, allowing you to launch and manage each project.
