@@ -49,12 +49,12 @@ def print_instructions(url):
     print("-" * 60)
 
 if __name__ == '__main__':
-    port = 5001
+    port = 5005
     url = f"http://127.0.0.1:{port}"
     
     print_instructions(url)
     
-    # Auto-open browser
+    # open browser
     try:
         webbrowser.open(url)
     except:

@@ -21,7 +21,6 @@ PROJECTS = {
         'folder': 'Assignment.1.PhishingDetector',
         'script': 'app.py',
         'type': 'web',
-        'url': 'http://127.0.0.1:5001'  # Ensure this matches the port in the project's app.py
     },
      'Assignment.2.MalwareSandboxProject': {
         'name': 'Sandbox Project',

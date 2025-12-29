@@ -24,26 +24,15 @@
         .suspicious { background-color: #fff3cd; border: 1px solid #ffeeba; color: #856404; }
         .phishing { background-color: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
         
-        /* --- השינוי שעשיתי כאן --- */
-        ul { 
-            margin-top: 15px; 
-            padding-left: 0;       /* ביטול ההזחה */
-            list-style-type: none; /* ביטול הנקודות */
-        }
-        li { 
-            margin-bottom: 8px; 
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.6); /* רקע עדין לכל שורה */
-            border-radius: 6px;
-            border-left: 4px solid rgba(0,0,0,0.1); /* פס עדין בצד במקום נקודה */
-        }
+        ul { margin-top: 10px; padding-left: 20px; list-style-type: none}
+        li { margin-bottom: 5px; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🛡️ Email Phishing Detector</h1>
+        <h1>Email Phishing Detector</h1>
         
         <form method="POST">
             <label>Sender Email</label>
@@ -75,7 +64,7 @@
             <p>No suspicious indicators found.</p>
             {% endif %}
 
-            <a href="/" class="reset-btn">🔄 Clear Results & Start Over</a>
+            <a href="/" class="reset-btn">Clear results to start over</a>
         </div>
         {% endif %}
     </div>
