@@ -1,5 +1,3 @@
-Cybersecurity & Development Portfolio
-This repository contains three practical projects demonstrating skills in cyber defense, secure development, and malware analysis. Each project focuses on a different aspect of information security.
 
 ## Assignment 1. Phishing Detector
 Gmail analysis system designed to identify phishing emails . The system combines heuristic text analysis and link inspection to determine the risk level of a message.
@@ -33,7 +31,19 @@ Key Features The application features a login interface with two modes. The Vuln
 # Installation and Usage
 Launcher The project includes a central management script named launcher.py that allows you to run all assignments from a single dashboard.
 
-Setup Instructions First, ensure you have Python 3.x installed on your machine. Next, install the required dependencies by running the command pip install flask flask-cors watchdog psutil in your terminal. Finally, start the system by running python launcher.py. A dashboard will automatically open in your web browser, allowing you to launch and manage each project.
+**1. Prerequisites**
+Ensure that you have **Python 3.x** installed on your machine.
+
+**2. Install Dependencies**
+Open your terminal or command prompt and run commands to install the required libraries:
+```bash
+pip install flask flask-cors watchdog psutil
+```
+
+**3. Launch the System**
+```bash
+python launcher.py
+```
 
 ## Project Structure
 ```text
