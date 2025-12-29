@@ -1,7 +1,7 @@
 Email Phishing Detector
 
 ## Overview
-This project is a cybersecurity tool developed to analyze emails and detect potential phishing attempts using heuristic analysis. It evaluates emails based on keywords, URL patterns, and sender authenticity (including spoofing detection). The system includes both a **Web Interface** and a **Chrome Extension** for real-time scanning within Gmail.
+This project is a cybersecurity tool developed to analyze emails and detect potential phishing attempts using heuristic analysis. It evaluates emails based on keywords, URL patterns, and sender authenticity. The system includes both a **Web Interface** and a **Chrome Extension** to scann within Gmail.
 
 ## Features
  **Keyword Analysis:** Detects high-pressure language (e.g., "Urgent", "Suspend").
