@@ -19,7 +19,7 @@ def home():
         }
         result = detector.analyze(email_data)
         
-    return render_template('index.html', result=result)
+    return render_template('appUI.html', result=result)
 
 @app.route('/api/scan', methods=['POST'])
 def scan_api():

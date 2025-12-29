@@ -145,7 +145,7 @@ class PhishingDetector:
                     if brand in domain_name or domain_name in brand or len(domain_name) == len(brand):
                         score += self.weights['spoofed_domain']
                         reasons.append(f"Typosquatting Detected: Domain '{domain}' is confusingly similar to '{brand}'")
-                        break # We found a match, no need to keep checking
+                        break
 
         except:
             pass

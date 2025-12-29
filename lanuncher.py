@@ -8,9 +8,7 @@ from threading import Timer
 # Initialize Flask Application
 app = Flask(__name__)
 
-# ==========================================
 #  CONFIGURATION
-# ==========================================
 # Define your projects here.
 # 'folder': The directory name relative to this launcher.
 # 'script': The Python file to execute.
@@ -26,7 +24,7 @@ PROJECTS = {
         'url': 'http://127.0.0.1:5001'  # Ensure this matches the port in the project's app.py
     },
      'Assignment.2.MalwareSandboxProject': {
-        'name': 'Sand box Project',
+        'name': 'Sandbox Project',
         'folder': 'Assignment.2.MalwareSandboxProject',
         'script': 'main.py',
         'type': 'script'
@@ -40,9 +38,7 @@ PROJECTS = {
     }
 }
 
-# ==========================================
 #  APPLICATION LOGIC
-# ==========================================
 
 @app.route('/')
 def dashboard():
@@ -96,9 +92,7 @@ def open_main_dashboard():
     """Opens the main launcher dashboard in the browser."""
     webbrowser.open("http://127.0.0.1:5000")
 
-# ==========================================
 #  MAIN ENTRY POINT
-# ==========================================
 if __name__ == '__main__':
     print("--- CENTRAL MANAGEMENT CONSOLE STARTED ---")
     print("Server running on http://127.0.0.1:5000")

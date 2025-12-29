@@ -49,7 +49,7 @@ def init_db():
 @app.route('/')
 def home():
     """Renders the main dashboard with both login forms."""
-    return render_template('index.html')
+    return render_template('appUI.html')
 
 @app.route('/login_vulnerable', methods=['POST'])
 def login_vulnerable():
@@ -76,15 +76,15 @@ def login_vulnerable():
         user = cursor.fetchone()
 
         if user:
-            return render_template('index.html', 
+            return render_template('appUI.html', 
                                    vulnerable_result="SUCCESS: Logged in as " + user['username'], 
                                    vulnerable_color="green")
         else:
-            return render_template('index.html', 
+            return render_template('appUI.html', 
                                    vulnerable_result="FAILURE: Invalid credentials", 
                                    vulnerable_color="red")
     except Exception as e:
-        return render_template('index.html', 
+        return render_template('appUI.html', 
                                vulnerable_result=f"DATABASE ERROR: {str(e)}", 
                                vulnerable_color="red")
 
@@ -110,11 +110,11 @@ def login_secure():
     user = cursor.fetchone()
 
     if user:
-        return render_template('index.html', 
+        return render_template('appUI.html', 
                                secure_result="SUCCESS: Logged in as " + user['username'], 
                                secure_color="green")
     else:
-        return render_template('index.html', 
+        return render_template('appUI.html', 
                                secure_result="FAILURE: Attack neutralized (Invalid credentials)", 
                                secure_color="green")
 
