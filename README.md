@@ -1,3 +1,4 @@
+The main README file acts as "master menu" for all assigment . And lanch page web    
 
 ## Assignment 1. Phishing Detector
 Gmail analysis system designed to identify phishing emails . The system combines heuristic text analysis and link inspection to determine the risk level of a message.
