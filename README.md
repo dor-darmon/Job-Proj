@@ -1,5 +1,3 @@
-Cybersecurity & Development Portfolio
-This repository contains three practical projects demonstrating skills in cyber defense, secure development, and malware analysis. Each project focuses on a different aspect of information security.
 
 ## Assignment 1. Phishing Detector
 Gmail analysis system designed to identify phishing emails . The system combines heuristic text analysis and link inspection to determine the risk level of a message.
