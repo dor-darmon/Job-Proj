@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Injection Simulation</title>
+    <style>
+        :root {
+            --vuln-color: #e74c3c;
+            --vuln-bg: #fdf2f1;
+            --sec-color: #2ecc71;
+            --sec-bg: #eafaf1;
+            --text-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #ecf0f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .main-card {
+            background: white;
+            width: 400px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Toggle Switch Container */
+        .toggle-container {
+            display: flex;
+            background: #eee;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            color: #7f8c8d;
+            border: none;
+            background: none;
+            cursor: pointer;
+            transition: 0.3s;
+            outline: none;
+        }
+
+        .toggle-btn.active {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Specific Colors for Active States */
+        .toggle-btn.active[data-mode="vulnerable"] {
+            color: var(--vuln-color);
+            border-bottom: 3px solid var(--vuln-color);
+        }
+
+        .toggle-btn.active[data-mode="secure"] {
+            color: var(--sec-color);
+            border-bottom: 3px solid var(--sec-color);
+        }
+
+        /* Content Area */
+        .content {
+            padding: 30px;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .description {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-bottom: 25px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        button.submit-btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        /* Different Button Colors per Mode */
+        .vuln-mode .submit-btn { background-color: var(--vuln-color); }
+        .vuln-mode .submit-btn:hover { background-color: #c0392b; }
+        
+        .sec-mode .submit-btn { background-color: var(--sec-color); }
+        .sec-mode .submit-btn:hover { background-color: #27ae60; }
+
+        /* Results & Hints */
+        .hint {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            text-align: center;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .success { background-color: #d4edda; color: #155724; }
+        .failure { background-color: #f8d7da; color: #721c24; }
+
+        /* Hidden Utility */
+        .hidden { display: none; }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-card" id="mainCard">
+        
+        <div class="toggle-container">
+            <button class="toggle-btn active" data-mode="vulnerable" onclick="switchMode('vulnerable')">
+                Vulnerable
+            </button>
+            <button class="toggle-btn" data-mode="secure" onclick="switchMode('secure')">
+                Secure
+            </button>
+        </div>
+
+        <div class="content">
+            
+            <div id="vulnerable-section">
+                <h2 style="color: var(--vuln-color);">Unsafe Login</h2>
+                <p class="description">This form is vulnerable to SQL Injection.</p>
+                
+                <form action="/login_vulnerable" method="POST">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" name="username" placeholder="admin" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="text" name="password" placeholder="Payload: ' OR '1'='1" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Login (Unsafe)</button>
+                </form>
+
+                <div class="hint">
+                    <code>' OR '1'='1</code>
+                </div>
+
+                {% if vulnerable_result %}
+                    <div class="result-box {% if 'SUCCESS' in vulnerable_result %}success{% else %}failure{% endif %}">
+                        {{ vulnerable_result }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div id="secure-section" class="hidden">
+                <h2 style="color: var(--sec-color);">Secure Login</h2>
+                <p class="description">Protected with Parameterized Queries.</p>
+                
+                <form action="/login_secure" method="POST">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" name="username" placeholder="admin" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="text" name="password" placeholder="Try the attack here..." required>
+                    </div>
+                    <button type="submit" class="submit-btn">Login (Secure)</button>
+                </form>
+
+                <div class="hint">
+                    SQL syntax is treated as plain text.
+                </div>
+
+                {% if secure_result %}
+                    <div class="result-box {% if 'SUCCESS' in secure_result %}success{% else %}failure{% endif %}">
+                        {{ secure_result }}
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function switchMode(mode) {
+            // 1. Update Buttons
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.dataset.mode === mode) btn.classList.add('active');
+            });
+
+            // 2. Show/Hide Content Sections
+            if (mode === 'vulnerable') {
+                document.getElementById('vulnerable-section').classList.remove('hidden');
+                document.getElementById('secure-section').classList.add('hidden');
+                
+                // Update styling wrapper
+                document.getElementById('mainCard').classList.remove('sec-mode');
+                document.getElementById('mainCard').classList.add('vuln-mode');
+            } else {
+                document.getElementById('vulnerable-section').classList.add('hidden');
+                document.getElementById('secure-section').classList.remove('hidden');
+
+                // Update styling wrapper
+                document.getElementById('mainCard').classList.remove('vuln-mode');
+                document.getElementById('mainCard').classList.add('sec-mode');
+            }
+        }
+
+        // Logic to keep the correct tab open after form submission
+        // Jinja2 will render these checks on the server side
+        /* {%- if secure_result %} */
+            switchMode('secure');
+        /* {%- else %} */
+            switchMode('vulnerable');
+        /* {%- endif %} */
+    </script>
+
+</body>
+</html>
