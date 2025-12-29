@@ -6,10 +6,7 @@ DATABASE = 'demo_database.db'
 app = Flask(__name__)
 app.secret_key = 'super_secret_key_for_session_management'
 
-# ---------------------------------------------------------
 # Database Helper Functions
-# ---------------------------------------------------------
-
 def get_db():
     """Opens a new database connection if one does not exist."""
     db = getattr(g, '_database', None)
@@ -47,9 +44,7 @@ def init_db():
             cursor.execute('INSERT INTO users (username, password) VALUES ("admin", "password123")')
             db.commit()
 
-# ---------------------------------------------------------
 # Application Routes
-# ---------------------------------------------------------
 
 @app.route('/')
 def home():
@@ -129,4 +124,4 @@ if __name__ == '__main__':
     # Initialize the DB before running
     init_db()
     print("System: Database initialized. Admin user created (User: admin, Pass: password123)")
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=5002)

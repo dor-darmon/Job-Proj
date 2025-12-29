@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Launcher Hub</title>
+    <style>
+        /* General Page Layout */
+        body {
+            font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+            background-color: #f4f6f9; /* Professional soft gray background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Main Container */
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: 40px;
+        }
+
+        /* Header Section */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+
+        p.subtitle {
+            color: #7f8c8d;
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* Grid Layout for Project Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        /* Individual Project Card Styling */
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 25px;
+            border: 1px solid #e1e4e8;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+
+        /* Card Typography */
+        .card h3 {
+            margin: 15px 0 10px 0;
+            color: #2c3e50;
+            font-size: 1.25rem;
+        }
+
+        .card p.path {
+            color: #95a5a6;
+            font-size: 0.85rem;
+            margin: 0;
+            font-family: 'Consolas', monospace; /* Monospace for file paths */
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            word-break: break-all;
+        }
+
+        /* Badges for Project Type (Web vs Script) */
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-web {
+            background-color: #e3f2fd;
+            color: #1565c0; /* Blue for Web */
+        }
+
+        .badge-script {
+            background-color: #eceff1;
+            color: #455a64; /* Gray for Scripts */
+        }
+
+        /* Notification Toast Styling */
+        #notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 15px 25px;
+            background: #27ae60;
+            color: white;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            font-weight: 500;
+            opacity: 0;
+            pointer-events: none; /* Prevents clicking when hidden */
+            transition: opacity 0.4s ease;
+            z-index: 1000;
+        }
+
+        /* Error state for notification */
+        #notification.error {
+            background: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Cyber Security Assignments</h1>
+            <p class="subtitle">Central Management Console</p>
+        </header>
+        
+        <div class="grid">
+            {% for id, proj in projects.items() %}
+            <div class="card" onclick="launchProject('{{ id }}')">
+                
+                {% if proj.type == 'web' %} 
+                    <span class="badge badge-web">Web Application</span>
+                {% else %} 
+                    <span class="badge badge-script">Console Script</span>
+                {% endif %}
+                
+                <h3>{{ proj.name }}</h3>
+                
+                <p class="path">/{{ proj.folder }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="notification">Ready</div>
+
+    <script>
+        /**
+         * Sends a request to the Python backend to launch a specific project.
+         * @param {string} projectId - The key ID of the project to launch.
+         */
+        function launchProject(projectId) {
+            // Provide immediate visual feedback (optional cursor change)
+            document.body.style.cursor = 'wait';
+
+            fetch(`/run/${projectId}`, { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    document.body.style.cursor = 'default';
+                    
+                    if (data.status === 'success') {
+                        showNotification(data.message, false);
+                    } else {
+                        showNotification('Error: ' + data.message, true);
+                    }
+                })
+                .catch(error => {
+                    document.body.style.cursor = 'default';
+                    showNotification('Connection Error: Is the launcher running?', true);
+                });
+        }
+
+        /**
+         * Displays a toast notification at the bottom of the screen.
+         * @param {string} text - Message to display.
+         * @param {boolean} isError - If true, displays in red; otherwise green.
+         */
+        function showNotification(text, isError) {
+            const notif = document.getElementById('notification');
+            notif.innerText = text;
+            
+            // Toggle error class for styling
+            if (isError) {
+                notif.classList.add('error');
+            } else {
+                notif.classList.remove('error');
+            }
+
+            // Show notification
+            notif.style.opacity = '1';
+
+            // Hide after 3 seconds
+            setTimeout(() => {
+                notif.style.opacity = '0';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

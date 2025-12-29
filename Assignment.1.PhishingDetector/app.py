@@ -49,7 +49,7 @@ def print_instructions(url):
     print("-" * 60)
 
 if __name__ == '__main__':
-    port = 5000
+    port = 5001
     url = f"http://127.0.0.1:{port}"
     
     print_instructions(url)
