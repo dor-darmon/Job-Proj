@@ -36,7 +36,7 @@ function getGmailContent() {
 async function analyzeText(text) {
   try {
     // Send extracted text to the local Python backend server
-    const response = await fetch('http://127.0.0.1:5000/api/scan', {
+    const response = await fetch('http://127.0.0.1:5001/api/scan', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text: text })
