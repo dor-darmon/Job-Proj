@@ -4,7 +4,7 @@
   "version": "1.0",
   "description": "Scans selected email text for phishing attempts",
   "permissions": ["activeTab", "scripting"],
-  "host_permissions": ["http://127.0.0.1:5001/*"],
+  "host_permissions": ["http://127.0.0.1:5005/*"],
   "action": {
     "default_popup": "popup.html"
   }
